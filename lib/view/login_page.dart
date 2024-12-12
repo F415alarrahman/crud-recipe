@@ -11,8 +11,8 @@ class LoginPage extends StatelessWidget {
   Widget build(BuildContext context) {
     return ChangeNotifierProvider(
       create: (_) => LoginNotifier(context: context),
-      child: Consumer<LoginNotifier>(
-        builder: (context, value, child) => Scaffold(
+      child: Consumer<LoginNotifier>(builder: (context, value, child) {
+        return Scaffold(
           body: Stack(
             children: [
               Form(
@@ -25,22 +25,14 @@ class LoginPage extends StatelessWidget {
                       child: Column(
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: [
-                          const SizedBox(
-                            height: 16,
-                          ),
-                          Center(
-                            child: Column(
-                              children: [
-                                const Text(
-                                  'Silahkan Masuk untuk melanjutkan',
-                                  textAlign: TextAlign.center,
-                                  style: TextStyle(
-                                      fontSize: 16,
-                                      fontWeight: FontWeight.w500,
-                                      color: Colors.green),
-                                ),
-                              ],
-                            ),
+                          const SizedBox(height: 16),
+                          const Text(
+                            'Silahkan Masuk untuk melanjutkan',
+                            textAlign: TextAlign.center,
+                            style: TextStyle(
+                                fontSize: 16,
+                                fontWeight: FontWeight.w500,
+                                color: Colors.green),
                           ),
                           const SizedBox(height: 32),
                           Column(
@@ -48,6 +40,8 @@ class LoginPage extends StatelessWidget {
                             children: [
                               const SizedBox(height: 8),
                               TextFormField(
+                                key: const Key(
+                                    'username'), // Tambahkan key di sini
                                 controller: value.emailController,
                                 decoration: InputDecoration(
                                   labelText: 'Email',
@@ -65,16 +59,15 @@ class LoginPage extends StatelessWidget {
                             ],
                           ),
                           const SizedBox(height: 16),
-
-                          // Section: Password Field
                           Column(
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
                               const SizedBox(height: 8),
                               TextFormField(
+                                key: const Key(
+                                    'password'), // Tambahkan key di sini
                                 controller: value.passwordController,
-                                obscureText:
-                                    true, // Menyembunyikan input password
+                                obscureText: true,
                                 decoration: InputDecoration(
                                   labelText: 'Password',
                                   border: OutlineInputBorder(
@@ -85,14 +78,12 @@ class LoginPage extends StatelessWidget {
                                   if (e!.isEmpty) {
                                     return "Password Tidak Boleh Kosong";
                                   }
-                                  return null; // Mengembalikan null jika valid
+                                  return null;
                                 },
                               ),
                             ],
                           ),
                           const SizedBox(height: 8),
-
-                          // Section: Forgot Password
                           Row(
                             mainAxisAlignment: MainAxisAlignment.end,
                             children: [
@@ -106,12 +97,12 @@ class LoginPage extends StatelessWidget {
                             ],
                           ),
                           const SizedBox(height: 16),
-
-                          // Section: Sign Up Button
                           SizedBox(
                             width: double.infinity,
                             height: 56,
                             child: ElevatedButton(
+                              key: const Key(
+                                  'login_button'), // Tambahkan key di sini
                               onPressed: () {
                                 if (value.keyfrom.currentState!.validate()) {
                                   value.setLoading(true);
@@ -142,8 +133,6 @@ class LoginPage extends StatelessWidget {
                             ),
                           ),
                           const SizedBox(height: 16),
-
-                          // Section: Register Option
                           Center(
                             child: Row(
                               mainAxisAlignment: MainAxisAlignment.center,
@@ -179,8 +168,8 @@ class LoginPage extends StatelessWidget {
               ),
             ],
           ),
-        ),
-      ),
+        );
+      }),
     );
   }
 }
