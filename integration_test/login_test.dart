@@ -10,31 +10,28 @@ void main() {
     "login test",
     (WidgetTester tester) async {
       // Memulai aplikasi
-      app.main(); // atau gunakan tester.pumpWidget(MaterialApp(home: LoginPage()));
+      app.main();
       await tester.pumpAndSettle();
 
       // Verifikasi halaman login tampil
-      expect(find.text("Silahkan Masuk untuk melanjutkan"),
-          findsOneWidget); // Sesuaikan dengan teks di halaman login
+      expect(find.text("Silahkan Masuk untuk melanjutkan"), findsOneWidget);
 
       // Mengisi email dan password
-      await tester.enterText(find.byKey(const Key('username')), 'testuser');
-      await tester.enterText(find.byKey(const Key('password')), 'test123');
+      await tester.enterText(
+          find.byKey(const Key('username')), 'f415alarr@gmail.com');
+      await tester.enterText(find.byKey(const Key('password')), 'faisal123');
 
       // Verifikasi hasil inputan
-      expect(find.text('testuser'), findsOneWidget);
-      expect(find.text('test123'), findsOneWidget);
+      expect(find.text('f415alarr@gmail.com'), findsOneWidget);
+      expect(find.text('faisal123'), findsOneWidget);
 
       // Menekan tombol login (pastikan key tombol sesuai)
-      await tester.tap(find.byKey(const Key(
-          "login_button"))); // Sesuaikan dengan key tombol login di LoginPage
+      await tester.tap(find.byKey(const Key("login_button")));
+      await tester.pumpAndSettle(); // Tunggu navigasi ke halaman HomePage
 
-      // Tunggu aplikasi memproses dan settle
-      await tester.pumpAndSettle();
-
-      // Verifikasi apakah halaman Home muncul setelah login berhasil
-      expect(find.text("Home"),
-          findsOneWidget); // Sesuaikan dengan teks atau widget yang ada pada halaman Home
+      // Verifikasi apakah halaman Home sudah dimuat (berdasarkan AppBar atau elemen yang ada di HomePage)
+      expect(find.text("Home Page"),
+          findsOneWidget); // Verifikasi jika HomePage dimuat
     },
   );
 }
